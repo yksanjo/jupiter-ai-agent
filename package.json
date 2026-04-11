@@ -1,0 +1,13 @@
+{
+  "name": "jupiter-ai-agent",
+  "version": "1.0.0",
+  "description": "Autonomous AI trading agent using Jupiter Developer Platform APIs",
+  "main": "jupiter_ai_agent.py",
+  "scripts": {
+    "start": "python3 jupiter_ai_agent.py",
+    "test": "python3 jupiter_ai_agent.py"
+  },
+  "dependencies": {
+    "aiohttp": "^3.9.0"
+  }
+}
