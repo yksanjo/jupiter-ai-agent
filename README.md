@@ -1,95 +1,149 @@
-# Jupiter AI Trading Agent
+# Jupiter AI Bounty Agent — v2.0
 
-An autonomous AI agent that monitors Solana token prices, analyzes market conditions, and executes trades via Jupiter's Developer Platform APIs.
+An autonomous AI agent that monitors Solana token prices, discovers arbitrage opportunities, analyzes market conditions, and generates swap quotes via Jupiter's Developer Platform APIs.
 
 **Built for:** [Not Your Regular Bounty](https://superteam.fun/earn/hackathon/frontier) — Frontier Hackathon by Jupiter
 **Author:** AI Builder Agent
+**Version:** 2.0
 
-## Live Demo
-[Link to hosted demo] — *Coming soon*
+## 🚀 Live Demo
+```bash
+pip install aiohttp
+export JUPITER_API_KEY="your_key_here"
+python3 jupiter_ai_agent.py
+```
 
-## What This Is
+## 🤖 What This Agent Does
 
-A fully autonomous AI agent that:
-- 📊 Monitors real-time Solana token prices via Jupiter Price API
-- 🔍 Searches and discovers tokens via Jupiter Tokens API
-- 🔄 Gets swap quotes via Jupiter Swap V2 API
-- 💰 Checks lending rates via Jupiter Lend API
-- 🤖 Runs continuous diagnostics and monitoring
-- 📝 Generates detailed DX feedback reports
+This is an **autonomous AI agent** that interacts with Jupiter's entire DeFi infrastructure:
 
-## Why It's Novel
+- 📊 **Real-time Price Monitoring** — Track SOL, USDC, JUP, and any Solana token prices
+- 🔍 **Token Discovery** — Search and discover tokens with metadata
+- 🔄 **Swap Quotes** — Get optimal routing across all Solana DEXs
+- 💰 **Lending Rates** — Monitor lending/borrowing rates across protocols
+- 📈 **Arbitrage Detection** — Identify potential arbitrage opportunities (direct vs via SOL paths)
+- 🤖 **Continuous Monitoring** — Run autonomous diagnostics with state persistence
+- 📝 **DX Reports** — Generate detailed developer experience feedback
 
-This is **not** another trading bot. It's an **AI agent framework** that demonstrates how autonomous agents can:
-1. Discover APIs through LLM-optimized docs (`llms.txt`)
-2. Self-test all available endpoints
-3. Report detailed developer experience feedback
-4. Operate continuously with state persistence
+## ✨ What's New in v2.0
 
-The agent is designed to work with Jupiter's entire API suite, showing how AI agents can be first-class users of modern DeFi infrastructure.
+- **Multi-Price API** — Fetch prices for multiple tokens in single call
+- **Arbitrage Detection** — Compare direct vs routed swap paths
+- **Price History Tracking** — Monitor price changes over time with % calculations
+- **Token Decimals Handling** — Proper decimal conversion for all major tokens
+- **Enhanced Error Handling** — Better error messages and recovery
+- **State Persistence** — Survives restarts with full history
 
-## How Solana Is Used
+## 🛠️ Tech Stack
 
-Every interaction goes through Jupiter's Solana infrastructure:
-- **Swap V2 API** — On-chain swap routing across all Solana DEXs
-- **Price API** — Real-time USD pricing of Solana tokens
-- **Tokens API** — Token metadata, verification, and discovery
-- **Lend API** — Lending/borrowing rates on Solana protocols
+| Component | Technology |
+|---|---|
+| Language | Python 3.8+ |
+| HTTP | `aiohttp` (async) |
+| APIs | Jupiter Price, Tokens, Swap V2, Lend |
+| State | JSON file persistence |
+| SSL | Custom context (macOS compatible) |
 
-## Setup
+## 📡 API Endpoints Used
+
+| API | Endpoint | Purpose |
+|-----|----------|---------|
+| Price | `GET /price/v2` | Real-time token prices |
+| Price (Multi) | `GET /price/v2?ids=a,b,c` | Batch price fetch |
+| Tokens | `GET /tokens/v1/search` | Token discovery & metadata |
+| Swap V2 | `GET /swap/v2/quote` | Cross-DEX swap quotes |
+| Lend | `GET /lend/rates` | Lending/borrowing rates |
+
+## 💻 Quick Start
 
 ```bash
 # Install dependencies
 pip install aiohttp
 
-# Set your Jupiter API key
+# Set your Jupiter API key (get from developers.jup.ag)
 export JUPITER_API_KEY="your_api_key_here"
 
-# Run diagnostics
+# Run full diagnostics
 python3 jupiter_ai_agent.py
 ```
 
-## API Endpoints Used
-
-| API | Endpoint | Purpose |
-|-----|----------|---------|
-| Price | `GET /price/v2` | Real-time token prices |
-| Tokens | `GET /tokens/v1/search` | Token discovery |
-| Swap V2 | `GET /swap/v2/quote` | Swap quotes |
-| Lend | `GET /lend/rates` | Lending rates |
-
-## Example Usage
+## 🧪 Programmatic Usage
 
 ```python
 from jupiter_ai_agent import JupiterAIAgent
 
 agent = JupiterAIAgent()
 
-# Get SOL price
+# Get single token price
 price = await agent.get_token_price("So11111111111111111111111111111111111111112")
 
+# Get multiple prices at once
+prices = await agent.get_multiple_prices([SOL_MINT, USDC_MINT, JUP_MINT])
+
 # Search for tokens
-tokens = await agent.get_token_info("SOL")
+tokens = await agent.search_tokens("SOL")
 
-# Get swap quote
-quote = await agent.get_swap_quote(SOL_MINT, USDC_MINT, 1000000)
+# Get swap quote (1 SOL → USDC)
+quote = await agent.get_swap_quote(SOL_MINT, USDC_MINT, 1000000000)
 
-# Run full diagnostics
-results = await agent.run_diagnostics()
+# Check for arbitrage opportunities
+arb = await agent.find_arbitrage_opportunity(SOL_MINT, USDC_MINT, 1000000000)
+
+# Monitor tokens over time
+await agent.monitor_tokens([SOL_MINT, USDC_MINT], iterations=10, interval=30)
+
+# Run full diagnostic suite
+results = await agent.run_full_diagnostics()
 ```
 
-## Developer Experience Report
+## 📊 Agent Autonomy Features
+
+This agent operates independently without human intervention:
+
+1. **API Health Monitoring** — Tests all endpoints on each run
+2. **State Persistence** — Saves/loads state across restarts
+3. **Price History** — Maintains rolling price history (last 100 points)
+4. **Error Recovery** — Handles network failures gracefully
+5. **Automated Reports** — Generates structured DX feedback
+
+## 🎯 Why This Is Novel
+
+This is **not** just another trading bot. It's an **AI agent framework** demonstrating:
+
+1. **LLM-Optimized API Consumption** — Uses `llms.txt` for autonomous API discovery
+2. **Self-Testing Architecture** — Validates all endpoints automatically
+3. **Multi-Path Analysis** — Compares direct vs routed swap paths for arbitrage
+4. **Developer Experience Feedback** — Generates actionable reports for API improvement
+5. **Zero-Config Operation** — Works out of the box with just an API key
+
+## 🔗 Links
+
+- **Jupiter Developer Platform:** https://dev.jup.ag
+- **Frontier Hackathon:** https://superteam.fun/earn/hackathon/frontier
+- **Superteam Earn:** https://earn.superteam.fun
+- **GitHub Repository:** https://github.com/yksanjo/jupiter-ai-agent
+
+## 📄 DX Report
 
 See [DX-REPORT.md](./DX-REPORT.md) for detailed feedback on integrating with Jupiter's Developer Platform.
 
-## Agent Autonomy
+## 📋 Bounty Submission Checklist
 
-This agent operates independently:
-- No human intervention required for API calls
-- Self-monitors API health
-- Persists state across restarts
-- Generates actionable feedback reports
+- [x] Jupiter Price API integration
+- [x] Jupiter Tokens API integration
+- [x] Jupiter Swap V2 API integration
+- [x] Jupiter Lend API integration
+- [x] Autonomous diagnostics suite
+- [x] State persistence
+- [x] DX Report generation
+- [x] Arbitrage detection (v2.0)
+- [x] Multi-price batch fetch (v2.0)
+- [x] Price history tracking (v2.0)
 
-## License
+## 📜 License
 
 MIT
+
+---
+
+*Built during the Solana Frontier Hackathon 2026. All code is open-source and available for reuse.*
